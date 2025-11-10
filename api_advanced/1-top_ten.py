@@ -17,7 +17,6 @@ def top_ten(subreddit):
 
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
     
-    # Use the User-Agent that we know works from Task 0
     headers = {
         "User-Agent": "linux:0-subs:v1.0 (by /u/kellen-mutoni)"
     }
@@ -37,7 +36,9 @@ def top_ten(subreddit):
         data = response.json().get("data")
         children = data.get("children")
         
-        if not data or not children:
+        # This is the logic fix:
+        # Check if data or children is missing OR if children is an empty list
+        if not data or not children or len(children) == 0:
             print("None")
             return
 
