@@ -15,16 +15,19 @@ def top_ten(subreddit):
         print("None")
         return
 
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+    url = "https.www.reddit.com/r/{}/hot.json".format(subreddit)
     
+    # This User-Agent is now broken into two lines to pass PEP8
     headers = {
-        "User-Agent": "linux:0-subs:v1.0 (by /u/kellen-mutoni)"
+        "User-Agent": ("linux:0-subs:v1.0 "
+                       "(by /u/kellen-mutoni)")
     }
     
     params = {
         "limit": 10
     }
 
+    # This line is also broken to pass PEP8
     response = requests.get(url,
                             headers=headers,
                             params=params,
