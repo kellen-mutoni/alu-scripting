@@ -25,7 +25,10 @@ def top_ten(subreddit):
         "limit": 10
     }
 
-    response = requests.get(url, headers=headers, params=params,
+    # This line is now broken up to be PEP8 compliant
+    response = requests.get(url,
+                            headers=headers,
+                            params=params,
                             allow_redirects=False)
 
     if response.status_code != 200:
@@ -36,8 +39,6 @@ def top_ten(subreddit):
         data = response.json().get("data")
         children = data.get("children")
         
-        # This is the logic fix:
-        # Check if data or children is missing OR if children is an empty list
         if not data or not children or len(children) == 0:
             print("None")
             return
