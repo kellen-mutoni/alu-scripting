@@ -16,12 +16,12 @@ def top_ten(subreddit):
         return
 
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-
+    
+    # Use the User-Agent that we know works from Task 0
     headers = {
-        "User-Agent": "linux:1-top_ten:v1.0 (by /u/kellen-mutoni)"
+        "User-Agent": "linux:0-subs:v1.0 (by /u/kellen-mutoni)"
     }
-
-    # We need the first 10 posts, so we set limit=10
+    
     params = {
         "limit": 10
     }
@@ -36,13 +36,13 @@ def top_ten(subreddit):
     try:
         data = response.json().get("data")
         children = data.get("children")
-
-        if not children:
+        
+        if not data or not children:
             print("None")
             return
 
         for post in children:
             print(post.get("data").get("title"))
-
+    
     except Exception:
         print("None")
