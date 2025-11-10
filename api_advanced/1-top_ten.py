@@ -25,7 +25,6 @@ def top_ten(subreddit):
         "limit": 10
     }
 
-    # This line is now broken up to be PEP8 compliant
     response = requests.get(url,
                             headers=headers,
                             params=params,
