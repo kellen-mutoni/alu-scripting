@@ -15,19 +15,20 @@ def top_ten(subreddit):
         print("None")
         return
 
-    url = "https.www.reddit.com/r/{}/hot.json".format(subreddit)
-    
-    # This User-Agent is now broken into two lines to pass PEP8
+    # Corrected URL (Fixes typo)
+    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
+
+    # User-Agent is split to pass PEP8 line length validation
     headers = {
         "User-Agent": ("linux:0-subs:v1.0 "
                        "(by /u/kellen-mutoni)")
     }
-    
+
     params = {
         "limit": 10
     }
 
-    # This line is also broken to pass PEP8
+    # requests.get is split for PEP8 line length validation
     response = requests.get(url,
                             headers=headers,
                             params=params,
@@ -40,13 +41,14 @@ def top_ten(subreddit):
     try:
         data = response.json().get("data")
         children = data.get("children")
-        
+
+        # Logic check: handles non-existent subs that return empty lists
         if not data or not children or len(children) == 0:
             print("None")
             return
 
         for post in children:
             print(post.get("data").get("title"))
-    
+
     except Exception:
         print("None")
