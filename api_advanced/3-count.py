@@ -13,7 +13,6 @@ def count_words(subreddit, word_list, after=None, counts={}):
     hot articles, and prints a sorted count of given keywords.
     """
     if not after:
-        # First call: normalize word_list to lowercase
         word_list = [word.lower() for word in word_list]
         counts = {word: 0 for word in word_list}
 
@@ -26,8 +25,7 @@ def count_words(subreddit, word_list, after=None, counts={}):
     headers = {
         "User-Agent": "linux:0x00.api.advanced:v1.0.0 (by /u/custom_user)"
     }
-    
-    # Don't follow redirects
+
     response = requests.get(url, headers=headers, allow_redirects=False)
 
     if response.status_code != 200:
@@ -47,17 +45,10 @@ def count_words(subreddit, word_list, after=None, counts={}):
         return None
 
     if after is None:
-        # End of recursion: print results
         if not counts:
             return
-        
-        # Filter out words with 0 count
         results = {k: v for k, v in counts.items() if v > 0}
-        
-        # Sort: Descending by count, then Alphabetical by word
-        # We achieve this by sorting items.
         sorted_results = sorted(results.items(), key=lambda x: (-x[1], x[0]))
-        
         for word, count in sorted_results:
             print("{}: {}".format(word, count))
     else:
